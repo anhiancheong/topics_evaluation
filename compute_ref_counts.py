@@ -44,37 +44,62 @@ def main():
     cols = []
     values = []
     n_docs = 0
+
+    infiles = [
+        infile
+    ]
+    """
+    infiles = [
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_0',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_1',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_2',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_3',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_4',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_5',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_6',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_7',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_8',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_9',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_10',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_11',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_12',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_13',
+        '/fs/clip-political/andrewhc/wiki_lines/wiki_14',
+    ]
+    """
+
     print("Counting words...")
-    with codecs.open(infile, 'r', encoding='utf-8') as f:
-        for line_i, line in enumerate(f):
-            line = line.strip()
-            if len(line) > 0:
-                if max_lines is not None and line_i >= max_lines:
-                    print("Quitting after processing %d lines" % (line_i+1))
-                    break
-                if n_docs % 1000 == 0 and n_docs > 0:
-                    print(n_docs)
-                # split on white space
-                words = line.split()
-                # filter out everything that's not just letters, and lower case
-                words = [word.lower() for word in words if re.match('^[a-zA-Z]*$', word) is not None]
-                # look for new words and add them to the vocabulary
-                new_words = [word for word in words if word not in vocab_index]
-                if len(new_words) > 0:
-                    vocab_size = len(vocab)
-                    #print("Adding %d words to vocab" % len(new_words))
-                    #print("New total should be %d" % (vocab_size + len(new_words)))
-                    vocab.extend(new_words)
-                    vocab_index.update(dict(zip(new_words, range(vocab_size, vocab_size + len(new_words)))))
-                indices = [vocab_index[word] for word in words]
-                counter.clear()
-                counter.update(indices)
-                keys = counter.keys()
-                counts = counter.values()
-                rows.extend([line_i] * len(keys))
-                cols.extend(keys)
-                values.extend(counts)
-                n_docs += 1
+    for infile in infiles:
+        with codecs.open(infile, 'r', encoding='utf-8') as f:
+            for line_i, line in enumerate(f):
+                line = line.strip()
+                if len(line) > 0:
+                    if max_lines is not None and line_i >= max_lines:
+                        print("Quitting after processing %d lines" % (line_i+1))
+                        break
+                    if n_docs % 1000 == 0 and n_docs > 0:
+                        print(n_docs)
+                    # split on white space
+                    words = line.split()
+                    # filter out everything that's not just letters, and lower case
+                    words = [word.lower() for word in words if re.match('^[a-zA-Z]*$', word) is not None]
+                    # look for new words and add them to the vocabulary
+                    new_words = [word for word in words if word not in vocab_index]
+                    if len(new_words) > 0:
+                        vocab_size = len(vocab)
+                        #print("Adding %d words to vocab" % len(new_words))
+                        #print("New total should be %d" % (vocab_size + len(new_words)))
+                        vocab.extend(new_words)
+                        vocab_index.update(dict(zip(new_words, range(vocab_size, vocab_size + len(new_words)))))
+                    indices = [vocab_index[word] for word in words]
+                    counter.clear()
+                    counter.update(indices)
+                    keys = counter.keys()
+                    counts = counter.values()
+                    rows.extend([line_i] * len(keys))
+                    cols.extend(keys)
+                    values.extend(counts)
+                    n_docs += 1
 
     print("Processed %d documents" % n_docs)
     print("Size of final vocab = %d" % len(vocab))
