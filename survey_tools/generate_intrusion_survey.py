@@ -13,6 +13,8 @@ import argparse
 import json
 import random
 
+from survey_utils import load_topics_file, format_survey_blocks
+
 def load_topics_file(filepath):
     reader = open(filepath)
     topics = []
@@ -130,55 +132,6 @@ def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, mo
      
     return intruder_question
 
-def format_survey_blocks(questions):
-    """
-    The SurveyBlocks section has to be extended with the set of questions
-    """
-    return {
-      "SurveyID": "SV_5sXmuibskKlpHmJ",
-      "Element": "BL",
-      "PrimaryAttribute": "Survey Blocks",
-      "SecondaryAttribute": None,
-      "TertiaryAttribute": None,
-      "Payload": [
-        {
-          "Type": "Default",
-          "Description": "Introduction Block",
-          "ID": "BL_cvxoPps3HflxlsN",
-          "BlockElements": [
-            {
-              "Type": "Question",
-              "QuestionID": "QID1"
-            },
-            {
-              "Type": "Question",
-              "QuestionID": "QID2"
-            }
-          ]
-        },
-        {
-          "Type": "Trash",
-          "Description": "Trash / Unused Questions",
-          "ID": "BL_0IH9ow1MoCfyMW9"
-        },
-        {
-          "Type": "Standard",
-          "SubType": "",
-          "Description": "Intruder Experiment",
-          "ID": "BL_2soHZqi6foVxie1",
-          "BlockElements": [{"Type": "Question", "QuestionID": question["Payload"]["QuestionID"]} for question in questions],
-          "Options": {
-            "BlockLocking": "false",
-            "RandomizeQuestions": "RandomWithXPerPage",
-            "Randomization": {
-              "Advanced": {
-                "QuestionsPerPage": 0
-              }
-            }
-          }
-        }
-      ]
-    }
 
 if __name__ == "__main__":
 
