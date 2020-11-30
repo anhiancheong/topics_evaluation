@@ -97,7 +97,7 @@ def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, mo
 
         #{'0': {'Display': 'Andrew'}, '1': {'Display': 'Eric'}, '2': {'Display': 'Claire'}, '3': {'Display': 'Riley'},
         #'4': {'Display': 'Daniel'}, '5': {'Display': 'Potato'}}
-    choices = { str(idx): {"Display": term} for idx,term in enumerate(terms)}
+    choices = { str(idx + 1): {"Display": term} for idx,term in enumerate(terms)}
 
     choice_order = [i for i in range(0, len(choices))]
 

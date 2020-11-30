@@ -84,9 +84,9 @@ def compute_npmi_at_n(topics, ref_vocab, ref_counts, n=10, cols_to_skip=0):
                     else:
                         npmi = (np.log10(n_docs) + np.log10(c12) - np.log10(c1) - np.log10(c2)) / (np.log10(n_docs) - np.log10(c12))
                 npmi_vals.append(npmi)
-        print(str(np.mean(npmi_vals)) + ': ' + ' '.join(words[:n]))
+        #print(str(np.mean(npmi_vals)) + ': ' + ' '.join(words[:n]))
         npmi_means.append(np.mean(npmi_vals))
-    print(np.mean(npmi_means))
+    #print(np.mean(npmi_means))
     # Andrew Modification: Return a list of the npmi means
     return npmi_means
     #return np.mean(npmi_means)
@@ -124,7 +124,7 @@ def compute_npmi_at_n_for_topic(topic, ref_vocab, ref_counts, n=10, cols_to_skip
                     npmi = (np.log10(n_docs) + np.log10(c12) - np.log10(c1) - np.log10(c2)) / (np.log10(n_docs) - np.log10(c12))
             npmi_vals.append(npmi)
 
-        print(str(np.mean(npmi_vals)) + ': ' + ' '.join(words[:n]))
+        #print(str(np.mean(npmi_vals)) + ': ' + ' '.join(words[:n]))
         npmi_means.append(np.mean(npmi_vals))
     return np.mean(npmi_vals)
     

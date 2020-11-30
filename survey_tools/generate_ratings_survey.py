@@ -45,8 +45,6 @@ def format_ratings_question(question_id, topic_id, terms, model_name="topics", t
             }
         }
     
-
-   
      
     return ratings_question
 
@@ -86,7 +84,7 @@ if __name__ == "__main__":
 
     print(f"Generating {len(questions)} questions")
 
-    survey_template
+
     if survey_template["SurveyElements"][0]["PrimaryAttribute"] == "Survey Blocks":
         update_survey_blocks_element(
             survey_template["SurveyElements"][0], 
