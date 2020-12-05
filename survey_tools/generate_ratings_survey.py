@@ -84,7 +84,6 @@ if __name__ == "__main__":
 
     print(f"Generating {len(questions)} questions")
 
-
     if survey_template["SurveyElements"][0]["PrimaryAttribute"] == "Survey Blocks":
         update_survey_blocks_element(
             survey_template["SurveyElements"][0], 

@@ -48,25 +48,6 @@ def main():
     infiles = [
         infile
     ]
-    """
-    infiles = [
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_0',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_1',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_2',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_3',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_4',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_5',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_6',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_7',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_8',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_9',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_10',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_11',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_12',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_13',
-        '/fs/clip-political/andrewhc/wiki_lines/wiki_14',
-    ]
-    """
 
     print("Counting words...")
     for infile in infiles:

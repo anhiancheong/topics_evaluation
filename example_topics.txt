@@ -1,0 +1,5 @@
+dog,cat,snake,hamster,rabbit,rat,mouse,hare,spider,turtle,fish
+pasta,pizza,meatball,cannoli,antipasti,picatta,milanese,bruchetta,ragu,pesto
+turkey,cranberry,potato,yams,beans,cornbread,stuffing,gravy,pumpkin,pecan,pie
+senator,congressman,congresswoman,resolution,act,bill,capitol,election,senate,congress
+doctor,nurse,icu,vaccine,cough,covid,coronavirus,ppe,virus,infection,mask
