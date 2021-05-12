@@ -1,12 +1,37 @@
+import json
 
-def load_topics_file(filepath):
+def load_multi_topics_file(filepath, model_type):
+    topic_file = json.load(open(filepath))
+    # first set of keys are the datasets
+    datasets = {
+      key: [
+              {
+                  "topic_id": idx,
+                  "terms": topic,
+                  "model_name": key,
+                  "model_type": model_type
+              }
+              for idx, topic in enumerate(topic_file[key]["topics"])
+      ]
+      for key in topic_file.keys()
+    }
+    return datasets
+
+
+def load_topics_file(filepath, delimiter=","):
     reader = open(filepath)
+    # This is risky 'bad' logic for dynamically determining the delimiter
+    lines = [line.replace("\t", " ") for line in reader.readlines()]
+    if len(lines[0].split(" ")) > len(lines[0].split(",")):
+        delimiter = " "
+    # Otherwise we use the regular comma delimiter
+    print("Delimiter: ", delimiter, "---")
     topics = []
-    for idx, line in enumerate(reader.readlines()):
+    for idx, line in enumerate(lines):
         topics.append(
             {
                 "topic_id": idx,
-                "terms": line.replace("\n", "").split(",")
+                "terms": line.replace("\n", "").split(delimiter)
             }
         )
     return topics

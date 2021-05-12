@@ -15,19 +15,25 @@ import random
 
 from survey_utils import load_topics_file, format_survey_blocks
 
-def load_topics_file(filepath):
+def load_topics_file(filepath, delimiter=","):
     reader = open(filepath)
+    lines = [line.replace("\t", " ") for line in reader.readlines()]
+    if len(lines[0].split(" ")) > len(lines[0].split(",")):
+        delimiter = " "
+    print(lines)
+    # Otherwise we use the regular comma delimiter
+    print("Delimiter: ", delimiter, "---")
     topics = []
-    for idx, line in enumerate(reader.readlines()):
+    for idx, line in enumerate(lines):
         topics.append(
             {
                 "topic_id": idx,
-                "terms": line.replace("\n", "").split(",")
+                "terms": line.replace("\n", "").split(delimiter)
             }
         )
     return topics
 
-def setup_word_intrusion(topics_list, n=20, topic_idxs=None):
+def setup_word_intrusion(topics_list, n=20, topic_idxs=None, num_terms=5, sample_top_topic_terms=False):
     """
     topics_list: format is a list of dicts [
         {"topic_id": 1, "terms": ["a","b","c"]},
@@ -45,21 +51,27 @@ def setup_word_intrusion(topics_list, n=20, topic_idxs=None):
     if not topic_idxs:
         topic_idxs = random.sample(range(len(topics_list)), n)
         
+    selected_intruders = set()
     for topic_idx in topic_idxs:
+        
         # select another topic from which to grab a term, exclude the current topic
-        random_topic_idx = random.choice([idx for idx in range(0, len(topics_list)) if (idx != topic_idx and idx not in topic_idxs)])
-
+        random_topic_idx = random.choice([idx for idx in range(0, len(topics_list)) if (idx != topic_idx and idx not in selected_intruders)])
+        selected_intruders.add(random_topic_idx)
         # take the top 5 words of the current topic and ONE of the top 5 terms from the top of the other topic
         # assert that the new word is not in the top 50 words of the original topic
-        correct_words = [word for word in topics_list[topic_idx]["terms"][:5]]
+        correct_words = [word for word in topics_list[topic_idx]["terms"][:num_terms]]
         
         # This collects the top 50 words of the current topic
         top_topic_words = [word for word in topics_list[topic_idx]["terms"][:50]]
 
         # This collects the top words of the 'intruder' topics that do NOT overlap with any of the top
         # 10 words of the other topic
-        top_random_words = [word for word in topics_list[random_topic_idx]["terms"][:5] \
-                            if word not in top_topic_words]
+        if sample_top_topic_terms:
+            top_random_words = random.sample([word for word in topics_list[random_topic_idx]["terms"][:10] \
+                                if word not in top_topic_words], num_terms)
+        else:
+            top_random_words = [word for word in topics_list[random_topic_idx]["terms"][:5] \
+                                if word not in top_topic_words]
         
         # EDGE-CASE - The top 50 words of the selected topic may overlap heavily with the
         # 'intruder' topics's top words. In this case, narrow down the set of excluded terms
@@ -89,7 +101,7 @@ def setup_word_intrusion(topics_list, n=20, topic_idxs=None):
             )
     return intruder_list
 
-def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, model_name="topics"):
+def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, model_name="topics", include_confidence=False):
     """
     NOTE: The last value in terms should be the intruder word
     """
@@ -97,9 +109,22 @@ def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, mo
 
         #{'0': {'Display': 'Andrew'}, '1': {'Display': 'Eric'}, '2': {'Display': 'Claire'}, '3': {'Display': 'Riley'},
         #'4': {'Display': 'Daniel'}, '5': {'Display': 'Potato'}}
-    choices = { str(idx + 1): {"Display": term} for idx,term in enumerate(terms)}
+    choices = {str(idx + 1): {"Display": term} for idx,term in enumerate(terms)}
 
-    choice_order = [i for i in range(0, len(choices))]
+    if include_confidence:
+        len_choice = len(choices)
+        choices[str(len_choice + 1)] = {
+          "Display": "I am familiar with these terms and am confident in my answer."
+        }
+        choices[str(len_choice + 2)] = {
+          "Display": "I am <em><strong>not</strong></em> familiar enough with these terms to answer confidently."
+        }
+
+    choice_order = [i + 1 for i in range(0, len(choices))]
+    choice_order_intrusion = choice_order[:-2]
+    choice_order_confidence = choice_order[-2:]
+
+    print(choices)
 
     intruder_question = {
         "SurveyID": "SV_5sXmuibskKlpHmJ",
@@ -129,7 +154,81 @@ def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, mo
             'NextAnswerId': 1,
             'QuestionID': f'QID{question_id}'}
     }
-     
+
+    intruder_question_confidence = {
+        "SecondaryAttribute": "Please select which term is the least related to all other terms and how confident you are in you...", 
+        "TertiaryAttribute": None, 
+        "Element": "SQ", 
+        "SurveyID": "SV_cGgwR9yoWhFLjSK", 
+        "Payload": {
+          "QuestionType": "MC", 
+          "QuestionID": f'QID{question_id}', 
+          "Validation": {
+            "Settings": {
+              "ForceResponseType": "ON", 
+              "MaxChoices": "1", 
+              "Type": "None", 
+              "ForceResponse": "ON", 
+              "MinChoices": "1"
+            }
+          }, 
+          "QuestionText": "Please select which term is the least related to all other terms and how confident you are in your answer", 
+          "Language": [], 
+          "NextChoiceId": len(choices) + 1, 
+          "DataVisibility": {
+            "Hidden": False, 
+            "Private": False
+          }, 
+          "NextAnswerId": 1, 
+          "Selector": "MAVR", 
+          "QuestionDescription": "Please select which term is the least related to all other terms and how confident you are in you...", 
+          "Randomization": {
+            "TotalRandSubset": "", 
+            "Type": "None", 
+            "Advanced": None
+          }, 
+          "ChoiceOrder": choice_order, 
+          "SubSelector": "TX", 
+          "DataExportTag": data_export_tag, 
+          "Choices": choices,
+          "Configuration": {
+            "QuestionDescriptionOption": "UseText"
+          }, 
+          "ChoiceGroups": {
+            "cg_2": {
+              "Randomization": {
+                "Type": "All"
+              }, 
+              "GroupLabel": "Terms", 
+              "Options": {
+                "HideTitle": False, 
+                "Selection": "SAWithinGroup"
+              }, 
+              "ChoiceGroupOrder": choice_order_intrusion
+            }, 
+            "cg_1": {
+              "Randomization": {
+                "Type": "None"
+              }, 
+              "GroupLabel": "Answer Confidence", 
+              "Options": {
+                "HideTitle": False, 
+                "Selection": "SAWithinGroup"
+              }, 
+              "ChoiceGroupOrder": choice_order_confidence
+            }
+          }, 
+          "ChoiceGroupOrder": [
+            "cg_2", 
+            "cg_1"
+          ]
+        }, 
+        "PrimaryAttribute": f'QID{question_id}'
+    }
+    
+    if include_confidence:
+        return intruder_question_confidence
+    
     return intruder_question
 
 
@@ -142,11 +241,19 @@ if __name__ == "__main__":
                             type=int, help="Number of Topics to generate intruder experiment for",
                             default=20)
     arg_parser.add_argument("-m", "--model_name", dest="model_name", help="Useful model name param", default="topics")
+    arg_parser.add_argument("--num_terms", dest="num_terms", type=int, help="Number of top terms to show", default=5)
+    arg_parser.add_argument("--include_confidence", dest="include_confidence", action="store_true", default=False, help="Include an option specify confidence")
+    arg_parser.add_argument("--sample_top_terms", dest="sample_top_terms", action="store_true", default=False, help="Sample the topic terms from top 10 instead of taking top 5")
 
     args = arg_parser.parse_args()
     topics = load_topics_file(args.file)
 
-    intruder_setup = setup_word_intrusion(topics, n=args.num_intruders, topic_idxs=None)
+    intruder_setup = setup_word_intrusion(
+        topics,
+        n=args.num_intruders,
+        topic_idxs=None,
+        num_terms=args.num_terms,
+        sample_top_topic_terms=args.sample_top_terms)
     print(intruder_setup)
 
     survey_template = json.load(open("Intrusion_Template.qsf"))
@@ -165,7 +272,8 @@ if __name__ == "__main__":
                 topic_id=intruder["topic_id"],
                 topic_intruder_id=intruder["intruder_id"],
                 terms=full_terms,
-                model_name=args.model_name)
+                model_name=args.model_name,
+                include_confidence=args.include_confidence)
         )
         question_id += 1
     print(f"Generating {len(questions)} questions")
@@ -188,6 +296,9 @@ if __name__ == "__main__":
     # Step 3: Append the new questions to the end
     for question in questions:
         survey_template["SurveyElements"].append(question)
+
+    survey_template["SurveyEntry"]["SurveyName"] = f"Intrusion {args.model_name.title()}"
+        
 
     json.dump(survey_template,
             open(f"{args.output}.qsf", "w+"),
