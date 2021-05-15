@@ -75,9 +75,10 @@
           ],
           "Options": {
             "BlockLocking": "false",
-            "RandomizeQuestions": "RandomWithXPerPage",
+            "RandomizeQuestions": "RandomWithOnlyX",
             "Randomization": {
               "Advanced": {
+                "TotalRandSubset": "25",
                 "QuestionsPerPage": 0
               }
             }
@@ -128,7 +129,6 @@
         "SurveyTermination": "DefaultMessage",
         "Header": "",
         "Footer": "",
-        "ProgressBarDisplay": "None",
         "PartialData": "+1 week",
         "ValidationMessage": "",
         "PreviousButton": " \u2190 ",
@@ -137,7 +137,9 @@
         "SkinLibrary": "umd",
         "SkinType": "MQ",
         "Skin": "umd2_new",
-        "NewScoring": 1
+        "NewScoring": 1,
+        "QuestionsPerPage":"5",
+        "ProgressBarDisplay":"Text"
       }
     },
     {

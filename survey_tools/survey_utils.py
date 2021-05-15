@@ -36,11 +36,19 @@ def load_topics_file(filepath, delimiter=","):
         )
     return topics
 
-def update_survey_blocks_element(survey_blocks_element, questions):
+def set_redirect_url(survey_elements, redirct_url):
+    for element in survey_elements:
+        if element["PrimaryAttribute"] == "Survey Options":
+            element["Payload"]["EOSRedirectURL"] = redirect_url
+        
+
+def update_survey_blocks_element(survey_blocks_element, questions, num_random=25):
     survey_blocks_element["Payload"][-1]["BlockElements"] = [
         {"Type": "Question", "QuestionID": question["Payload"]["QuestionID"]} for question in questions]
+    survey_blocks_element["Payload"][-1]["Options"]["RandomizeQuestions"] = "RandomWithOnlyX"
+    survey_blocks_element["Payload"][-1]["Options"]["Randomization"]["Advanced"]["TotalRandSubset"] = num_random
 
-def format_survey_blocks(questions):
+def format_survey_blocks(questions, n=25):
     """
     The SurveyBlocks section has to be extended with the set of questions
     """
@@ -79,10 +87,11 @@ def format_survey_blocks(questions):
           "BlockElements": [{"Type": "Question", "QuestionID": question["Payload"]["QuestionID"]} for question in questions],
           "Options": {
             "BlockLocking": "false",
-            "RandomizeQuestions": "RandomWithXPerPage",
+            "RandomizeQuestions": "RandomWithOnlyX",
             "Randomization": {
               "Advanced": {
-                "QuestionsPerPage": 0
+                "QuestionsPerPage": 0,
+                "TotalRandSubset": n
               }
             }
           }

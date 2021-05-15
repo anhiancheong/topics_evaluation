@@ -148,10 +148,15 @@ if __name__ == "__main__":
     arg_parser.add_argument("--multi", dest="multi", help="Multi topic file experiment", default=None)
     arg_parser.add_argument("--file_2", dest="file_2", help="Second topic file")
     arg_parser.add_argument("--model_name_2", dest="model_name_2", help="Useful model name param for the second topic file")
+    arg_parser.add_argument("--num_rand_questions", default="25", help="Number of questions to show out of the max")
+    arg_parser.add_argument("--prolific", help="URL of the link back to Prolific")
 
     args = arg_parser.parse_args()
 
-    survey_template = json.load(open("Topic_Ratings_Template.qsf"))
+    if args.prolific:
+        survey_template = json.load(open("Topic_Ratings_Template.qsf"))
+    else:    
+        survey_template = json.load(open("Topic_Ratings_Template_Prolific.qsf"))
 
     question_id = 3
     questions = []
@@ -218,6 +223,7 @@ if __name__ == "__main__":
             survey_template["SurveyElements"][0], 
             questions
         )
+        survey_template["SurveyElements"][0]["PrimaryAttribute"]
         
     # Step 2: Wipe the existing old questions that are there for easy reference
     idx_to_delete = []
@@ -235,6 +241,9 @@ if __name__ == "__main__":
         survey_template["SurveyElements"].append(question)
 
     survey_template["SurveyEntry"]["SurveyName"] = f"Ratings {args.model_name.title()}"
+
+    if args.prolific:
+        set_redirect_url(survey_template["SurveyElements"], args.prolific )
 
     json.dump(survey_template,
             open(f"{args.output}.qsf", "w+"),

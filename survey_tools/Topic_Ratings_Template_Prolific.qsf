@@ -1,0 +1,478 @@
+{
+  "SurveyEntry": {
+    "LastModified": "2021-05-15 15:50:17", 
+    "SurveyCreationDate": "2020-09-27 11:48:45", 
+    "SurveyExpirationDate": "0000-00-00 00:00:00", 
+    "LastActivated": "0000-00-00 00:00:00", 
+    "SurveyDescription": null, 
+    "SurveyName": "Topic Ratings Template", 
+    "SurveyActiveResponseSet": "RS_3TWgJxVdQvWZKbX", 
+    "SurveyID": "SV_4My2xeJALXVC80l", 
+    "SurveyLanguage": "EN", 
+    "SurveyStatus": "Inactive", 
+    "CreatorID": "UR_1MmbX0D3bAle6sR", 
+    "SurveyStartDate": "0000-00-00 00:00:00", 
+    "DivisionID": null, 
+    "SurveyOwnerID": "UR_1MmbX0D3bAle6sR", 
+    "Deleted": null, 
+    "LastAccessed": "0000-00-00 00:00:00", 
+    "SurveyBrandID": "umd"
+  }, 
+  "SurveyElements": [
+    {
+      "SecondaryAttribute": null, 
+      "TertiaryAttribute": null, 
+      "Element": "BL", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": [
+        {
+          "BlockElements": [
+            {
+              "QuestionID": "QID1", 
+              "Type": "Question"
+            }, 
+            {
+              "QuestionID": "QID2", 
+              "Type": "Question"
+            }, 
+            {
+              "QuestionID": "QID6", 
+              "Type": "Question"
+            }
+          ], 
+          "Type": "Default", 
+          "Description": "Introduction Block", 
+          "ID": "BL_3pCRc9xN2u4DSo5"
+        }, 
+        {
+          "BlockElements": [], 
+          "Type": "Trash", 
+          "Description": "Trash / Unused Questions", 
+          "ID": "BL_5gyNEZgeLuZ2kbX"
+        }, 
+        {
+          "Description": "Topic Ratings", 
+          "BlockElements": [
+            {
+              "QuestionID": "QID3", 
+              "Type": "Question"
+            }, 
+            {
+              "QuestionID": "QID4", 
+              "Type": "Question"
+            }, 
+            {
+              "QuestionID": "QID5", 
+              "Type": "Question"
+            }
+          ], 
+          "ID": "BL_a4ViNnjRr1CNXkV", 
+          "SubType": "", 
+          "Type": "Standard", 
+          "Options": {
+            "BlockLocking": "false", 
+            "RandomizeQuestions": "RandomWithXPerPage", 
+            "Randomization": {
+              "Advanced": {
+                "QuestionsPerPage": 0
+              }
+            }
+          }
+        }
+      ], 
+      "PrimaryAttribute": "Survey Blocks"
+    }, 
+    {
+      "SecondaryAttribute": null, 
+      "TertiaryAttribute": null, 
+      "Element": "FL", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "Flow": [
+          {
+            "FlowID": "FL_4", 
+            "EmbeddedData": [
+              {
+                "VariableType": "String", 
+                "Description": "PROLIFIC_PID", 
+                "Field": "PROLIFIC_PID", 
+                "DataVisibility": [], 
+                "AnalyzeText": false, 
+                "Type": "Recipient"
+              }
+            ], 
+            "Type": "EmbeddedData"
+          }, 
+          {
+            "FlowID": "FL_2", 
+            "Autofill": [], 
+            "Type": "Block", 
+            "ID": "BL_3pCRc9xN2u4DSo5"
+          }, 
+          {
+            "FlowID": "FL_3", 
+            "Autofill": [], 
+            "Type": "Standard", 
+            "ID": "BL_a4ViNnjRr1CNXkV"
+          }
+        ], 
+        "FlowID": "FL_1", 
+        "Type": "Root", 
+        "Properties": {
+          "Count": 4, 
+          "RemovedFieldsets": []
+        }
+      }, 
+      "PrimaryAttribute": "Survey Flow"
+    }, 
+    {
+      "SecondaryAttribute": null, 
+      "TertiaryAttribute": null, 
+      "Element": "SO", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "SurveyMetaDescription": "Survey Software, Enterprise Survey software for enterprise feedback management and CRM solutions. Enables high-quality data collection, panel management and results analysis. Perfect for market research or CRM solution (Customer Relationship Management) integration. Free trial and consultation.", 
+        "InactiveMessage": null, 
+        "PasswordProtection": "No", 
+        "EmailThankYou": "false", 
+        "InactiveSurvey": null, 
+        "SurveyExpiration": "None", 
+        "ProgressBarDisplay": "None", 
+        "ValidationMessageLibrary": null, 
+        "EOSMessageLibrary": null, 
+        "SurveyTitle": "Online Survey Software | Qualtrics Survey Solutions", 
+        "NextButton": " \u2192 ", 
+        "PartialDataCloseAfter": "LastActivity", 
+        "BackButton": "false", 
+        "AvailableLanguages": {
+          "EN": []
+        }, 
+        "NewScoring": 1, 
+        "ValidateMessage": "false", 
+        "SaveAndContinue": "true", 
+        "PartialDeletion": null, 
+        "SurveyProtection": "PublicSurvey", 
+        "ShowExportTags": "false", 
+        "NoIndex": "Yes", 
+        "Footer": "", 
+        "ResponseSummary": "No", 
+        "UseCustomSurveyLinkCompletedMessage": null, 
+        "AnonymizeResponse": "No", 
+        "SkinType": "MQ", 
+        "EOSRedirectURL": "http://prolific.co", 
+        "RefererCheck": "No", 
+        "SkinLibrary": "umd", 
+        "SurveyLinkCompletedMessageLibrary": null, 
+        "ValidationMessage": null, 
+        "SurveyTermination": "Redirect", 
+        "SurveyLinkCompletedMessage": null, 
+        "PreviousButton": " \u2190 ", 
+        "InactiveMessageLibrary": null, 
+        "EOSMessage": null, 
+        "BallotBoxStuffingPrevention": "false", 
+        "CollectGeoLocation": "false", 
+        "Header": "", 
+        "ThankYouEmailMessageLibrary": null, 
+        "SecureResponseFiles": "true", 
+        "Skin": "umd2_new", 
+        "PartialData": "+1 week", 
+        "ThankYouEmailMessage": null
+      }, 
+      "PrimaryAttribute": "Survey Options"
+    }, 
+    {
+      "SecondaryAttribute": null, 
+      "TertiaryAttribute": null, 
+      "Element": "SCO", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "ScoringSummaryAfterQuestions": 0, 
+        "ScoringSummaryCategory": null, 
+        "ScoringCategoryGroups": [], 
+        "ScoringSummaryAfterSurvey": 0, 
+        "DefaultScoringCategory": null, 
+        "ScoringCategories": [], 
+        "AutoScoringCategory": null
+      }, 
+      "PrimaryAttribute": "Scoring"
+    }, 
+    {
+      "SecondaryAttribute": null, 
+      "TertiaryAttribute": "1.1.0", 
+      "Element": "PROJ", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "SchemaVersion": "1.1.0", 
+        "ProjectCategory": "CORE"
+      }, 
+      "PrimaryAttribute": "CORE"
+    }, 
+    {
+      "SecondaryAttribute": null, 
+      "TertiaryAttribute": null, 
+      "Element": "STAT", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "MobileCompatible": true, 
+        "ID": "Survey Statistics"
+      }, 
+      "PrimaryAttribute": "Survey Statistics"
+    }, 
+    {
+      "SecondaryAttribute": "6", 
+      "TertiaryAttribute": null, 
+      "Element": "QC", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": null, 
+      "PrimaryAttribute": "Survey Question Count"
+    }, 
+    {
+      "SecondaryAttribute": "Default Response Set", 
+      "TertiaryAttribute": null, 
+      "Element": "RS", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": null, 
+      "PrimaryAttribute": "RS_3TWgJxVdQvWZKbX"
+    }, 
+    {
+      "SecondaryAttribute": "How related are the following terms: A, B, C, D, E, F, G, H, I, J", 
+      "TertiaryAttribute": null, 
+      "Element": "SQ", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "QuestionType": "MC", 
+        "QuestionID": "QID5", 
+        "Validation": {
+          "Settings": {
+            "ForceResponseType": "ON", 
+            "Type": "None", 
+            "ForceResponse": "ON"
+          }
+        }, 
+        "QuestionText": "<span style=\"font-weight: bolder;\">How related are the following terms:</span><div><b>A, B, C, D, E, F, G, H, I, J</b></div>", 
+        "Language": [], 
+        "NextChoiceId": 4, 
+        "NextAnswerId": 1, 
+        "Selector": "SAHR", 
+        "QuestionDescription": "How related are the following terms: A, B, C, D, E, F, G, H, I, J", 
+        "DataVisibility": {
+          "Hidden": false, 
+          "Private": false
+        }, 
+        "ChoiceOrder": [
+          "1", 
+          "2", 
+          "3"
+        ], 
+        "SubSelector": "TX", 
+        "DataExportTag": "Q5", 
+        "Choices": {
+          "1": {
+            "Display": "Not Very Related"
+          }, 
+          "3": {
+            "Display": "Very Related"
+          }, 
+          "2": {
+            "Display": "Somewhat Related"
+          }
+        }, 
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText", 
+          "LabelPosition": "BELOW"
+        }
+      }, 
+      "PrimaryAttribute": "QID5"
+    }, 
+    {
+      "SecondaryAttribute": "How related are the following terms: Apple, Banana, Orange, Grape, Peach, Mango, Pineapple, Lemon...", 
+      "TertiaryAttribute": null, 
+      "Element": "SQ", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "QuestionType": "MC", 
+        "QuestionID": "QID3", 
+        "Validation": {
+          "Settings": {
+            "ForceResponseType": "ON", 
+            "Type": "None", 
+            "ForceResponse": "ON"
+          }
+        }, 
+        "QuestionText": "<span style=\"font-weight: bolder;\">How related are the following terms:</span><div><span style=\"font-weight: bolder;\">Apple, Banana, Orange, Grape, Peach, Mango, Pineapple, Lemon, Lime, Cherry</span></div>", 
+        "Language": [], 
+        "NextChoiceId": 4, 
+        "NextAnswerId": 1, 
+        "Selector": "SAHR", 
+        "QuestionDescription": "How related are the following terms: Apple, Banana, Orange, Grape, Peach, Mango, Pineapple, Lemon...", 
+        "ChoiceOrder": [
+          "1", 
+          "2", 
+          "3"
+        ], 
+        "SubSelector": "TX", 
+        "DataExportTag": "Q3", 
+        "Choices": {
+          "1": {
+            "Display": "Not Very Related"
+          }, 
+          "3": {
+            "Display": "Very Related"
+          }, 
+          "2": {
+            "Display": "Somewhat Related"
+          }
+        }, 
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText", 
+          "LabelPosition": "BELOW"
+        }
+      }, 
+      "PrimaryAttribute": "QID3"
+    }, 
+    {
+      "SecondaryAttribute": "How related are the following terms: California, Minnesota, Michigan, Wisconsin, Texas, Florida,...", 
+      "TertiaryAttribute": null, 
+      "Element": "SQ", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "QuestionType": "MC", 
+        "QuestionID": "QID4", 
+        "Validation": {
+          "Settings": {
+            "ForceResponseType": "ON", 
+            "Type": "None", 
+            "ForceResponse": "ON"
+          }
+        }, 
+        "QuestionText": "<span style=\"font-weight: bolder;\">How related are the following terms:</span><div><b>California, Minnesota, Michigan, Wisconsin, Texas, Florida, Pennsylvania, Arizona, Georgia, Virginia</b></div>", 
+        "Language": [], 
+        "NextChoiceId": 4, 
+        "NextAnswerId": 1, 
+        "Selector": "SAHR", 
+        "QuestionDescription": "How related are the following terms: California, Minnesota, Michigan, Wisconsin, Texas, Florida,...", 
+        "DataVisibility": {
+          "Hidden": false, 
+          "Private": false
+        }, 
+        "ChoiceOrder": [
+          "1", 
+          "2", 
+          "3"
+        ], 
+        "SubSelector": "TX", 
+        "DataExportTag": "Q4", 
+        "Choices": {
+          "1": {
+            "Display": "Not Very Related"
+          }, 
+          "3": {
+            "Display": "Very Related"
+          }, 
+          "2": {
+            "Display": "Somewhat Related"
+          }
+        }, 
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText", 
+          "LabelPosition": "BELOW"
+        }
+      }, 
+      "PrimaryAttribute": "QID4"
+    }, 
+    {
+      "SecondaryAttribute": "Please enter your Prolific PID:", 
+      "TertiaryAttribute": null, 
+      "Element": "SQ", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "QuestionType": "TE", 
+        "QuestionID": "QID6", 
+        "Validation": {
+          "Settings": {
+            "Type": "None", 
+            "ForceResponse": "OFF"
+          }
+        }, 
+        "QuestionText": "Please enter your Prolific PID:", 
+        "Language": [], 
+        "NextChoiceId": 4, 
+        "GradingData": [], 
+        "Selector": "SL", 
+        "QuestionDescription": "Please enter your Prolific PID:", 
+        "DefaultChoices": {
+          "TEXT": {
+            "Text": "${e://Field/PROLIFIC_PID}"
+          }
+        }, 
+        "NextAnswerId": 1, 
+        "DataExportTag": "prolific", 
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        }, 
+        "SearchSource": {
+          "AllowFreeResponse": "false"
+        }
+      }, 
+      "PrimaryAttribute": "QID6"
+    }, 
+    {
+      "SecondaryAttribute": "The computer model we are testing seeks to identify groups of words that are highly related to ea...", 
+      "TertiaryAttribute": null, 
+      "Element": "SQ", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "QuestionType": "DB", 
+        "QuestionID": "QID2", 
+        "Validation": {
+          "Settings": {
+            "Type": "None"
+          }
+        }, 
+        "QuestionText": "The computer model we are testing seeks to identify groups of words that are highly related to each other. In the following sections, you will be asked to select how rate how related these groups of words are with a 3-point scale. The rating options are:&nbsp;<span style=\"font-weight: bolder;\">Not Very Related, Somewhat Related, Very Related</span><div><br>Here is some guidance on how to apply these ratings and some examples:<br>&nbsp;</div><div><span style=\"font-weight: bolder;\">Not Very Related</span>&nbsp;- The words do not share any obvious relationship to each other. It would be difficult to describe how the words are related to each other.</div><div>Example: \"dog\", \"apple\", \"pencil\", \"earth\", \"computer\"<br>Example: 1, \"H1\", \"???\", \"boy\", \"Actions\"&nbsp; (The output of the models may not make sense and have 'gibberish' in them)</div><div>&nbsp;</div><div><span style=\"font-weight: bolder;\">Somewhat Related</span>&nbsp;- The words are loosely related to each other, but there may be a few ambiguous or unrelated words</div><div>Example: \"dog\", \"ball\", \"pet\", \"receipt\", \"pen\" (In this example, some of the words seem closely related, but not all of them)<br>Example: \"computer\", \"video\", \"card\", \"jack\", \"spark\", \"bank\" (In this example, some of the words may have multiple meaning and some seem like they are more closely related than others)</div><div>&nbsp;</div><div><span style=\"font-weight: bolder;\">Very Related</span>&nbsp;- The words are clearly related to each other, and it would be easy to describe how they are related.</div><div>Example: \"dog\", \"cat\", \"hamster\", \"rabbit\", \"snake\" (An obvious way to describe the relationship here would be 'Pets')<br>Example: \"book\", \"paper\", \"page\", \"ink\", \"hardcover\" (An obvious way to describe this would be 'Books')</div>", 
+        "Language": [], 
+        "NextChoiceId": 8, 
+        "GradingData": [], 
+        "Selector": "TB", 
+        "QuestionDescription": "The computer model we are testing seeks to identify groups of words that are highly related to ea...", 
+        "DefaultChoices": false, 
+        "ChoiceOrder": [], 
+        "NextAnswerId": 1, 
+        "DataExportTag": "Q2", 
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        }
+      }, 
+      "PrimaryAttribute": "QID2"
+    }, 
+    {
+      "SecondaryAttribute": "This survey will ask you to evaluate the outputs of a Machine Learning computer model.\u00a0Researcher..", 
+      "TertiaryAttribute": null, 
+      "Element": "SQ", 
+      "SurveyID": "SV_4My2xeJALXVC80l", 
+      "Payload": {
+        "QuestionType": "DB", 
+        "QuestionID": "QID1", 
+        "Validation": {
+          "Settings": {
+            "Type": "None"
+          }
+        }, 
+        "QuestionText": "This survey will ask you to evaluate the outputs of a Machine Learning computer model.&nbsp;Researchers in all fields commonly have a lot of documents to explore. One common way to explore these documents is to organize them into different categories.<div>For example, a set of news articles might be organized into a set of Sports, Politics and Entertainment categories.</div><div><br></div><div><div>Organizing these documents by hand can take a lot of time which is why researchers explore ways of to do this automatically.</div><div>In this study, you will be asked questions that will help us evaluate the quality of some of these automatic methods.</div></div><div><br>This study should take approximately 10-15 minutes to complete.<br><br>Your response will be completely anonymous.</div>", 
+        "Language": [], 
+        "NextChoiceId": 4, 
+        "GradingData": [], 
+        "Selector": "TB", 
+        "QuestionDescription": "This survey will ask you to evaluate the outputs of a Machine Learning computer model.\u00a0Researcher...", 
+        "DefaultChoices": false, 
+        "ChoiceOrder": [], 
+        "NextAnswerId": 1, 
+        "DataExportTag": "Q1", 
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        }
+      }, 
+      "PrimaryAttribute": "QID1"
+    }
+  ]
+}

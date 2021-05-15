@@ -13,7 +13,7 @@ import argparse
 import json
 import random
 
-from survey_utils import load_topics_file, format_survey_blocks
+from survey_utils import load_topics_file, format_survey_blocks, load_multi_topics_file
 
 def load_topics_file(filepath, delimiter=","):
     reader = open(filepath)
@@ -45,7 +45,7 @@ def setup_word_intrusion(topics_list, n=20, topic_idxs=None, num_terms=5, sample
     """
     # Can't sample more than the available topics
     assert len(topics_list) >= n
-    
+  
     intruder_list = []
     # Generate n random ints for the selection of topics we'll conduct intrusion on
     if not topic_idxs:
@@ -237,50 +237,120 @@ if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument("-f", "--file", dest="file", help="File path for input files", required=True)
     arg_parser.add_argument("-o", "--output", dest="output", help="Output file name", required=True)
+    arg_parser.add_argument("-s", "--survey_name", dest="survey_name", help="Survey name", required=True)
     arg_parser.add_argument("-n", "--num_intruders", dest="num_intruders",
                             type=int, help="Number of Topics to generate intruder experiment for",
                             default=20)
     arg_parser.add_argument("-m", "--model_name", dest="model_name", help="Useful model name param", default="topics")
     arg_parser.add_argument("--num_terms", dest="num_terms", type=int, help="Number of top terms to show", default=5)
-    arg_parser.add_argument("--include_confidence", dest="include_confidence", action="store_true", default=False, help="Include an option specify confidence")
     arg_parser.add_argument("--sample_top_terms", dest="sample_top_terms", action="store_true", default=False, help="Sample the topic terms from top 10 instead of taking top 5")
 
+    arg_parser.add_argument("--include_confidence", dest="include_confidence", action="store_true", default=False, help="Include an option specify confidence")
+    arg_parser.add_argument("--multi", dest="multi", help="Multi topic file experiment", default=None)
+    arg_parser.add_argument("--file_2", dest="file_2", help="Second topic file")
+    arg_parser.add_argument("--model_name_2", dest="model_name_2", help="Useful model name param for the second topic file")
+    arg_parser.add_argument("--num_rand_questions", default="25", help="Number of questions to show out of the max")
+    arg_parser.add_argument("--prolific", help="URL of the link back to Prolific")
+
     args = arg_parser.parse_args()
-    topics = load_topics_file(args.file)
 
-    intruder_setup = setup_word_intrusion(
-        topics,
-        n=args.num_intruders,
-        topic_idxs=None,
-        num_terms=args.num_terms,
-        sample_top_topic_terms=args.sample_top_terms)
-    print(intruder_setup)
-
-    survey_template = json.load(open("Intrusion_Template.qsf"))
+    if args.prolific:
+        survey_template = json.load(open("Intrusion_Template_Prolific.qsf"))
+    else:
+        survey_template = json.load(open("Intrusion_Template.qsf"))
 
     questions = []
     # THIS NEED TO START AT 3 TO TAKE INTO ACCOUNT THE 2 INTRO BLOCKS
     question_id = 3
-    for intruder in intruder_setup:
-        # This ensures the intruder is always the last work in the list and will be the last encoded term
-        full_terms = [term for term in intruder["topic_terms"]]
-        full_terms.append(intruder["intruder_term"])
 
-        questions.append(
-            format_intruder_question(
-                question_id=question_id,
-                topic_id=intruder["topic_id"],
-                topic_intruder_id=intruder["intruder_id"],
-                terms=full_terms,
-                model_name=args.model_name,
-                include_confidence=args.include_confidence)
+    if args.multi:
+        multi_topics_1 = load_multi_topics_file(args.file, args.model_name)[args.multi]
+        multi_topics_2 = load_multi_topics_file(args.file_2, args.model_name_2)[args.multi]
+
+        print(multi_topics_1)
+        intruder_setup_1 = setup_word_intrusion(
+          multi_topics_1,
+          n=args.num_intruders,
+          topic_idxs=None,
+          num_terms=args.num_terms,
+          sample_top_topic_terms=args.sample_top_terms
         )
-        question_id += 1
+
+        intruder_setup_2 = setup_word_intrusion(
+          multi_topics_2,
+          n=args.num_intruders,
+          topic_idxs=None,
+          num_terms=args.num_terms,
+          sample_top_topic_terms=args.sample_top_terms
+        )
+
+        questions = []
+                
+        for intruder in intruder_setup_1:
+            full_terms = [term for term in intruder["topic_terms"]]
+            full_terms.append(intruder["intruder_term"])
+
+            questions.append(
+                format_intruder_question(
+                    question_id=question_id,
+                    topic_id=intruder["topic_id"],
+                    topic_intruder_id=intruder["intruder_id"],
+                    terms=full_terms,
+                    model_name=args.model_name,
+                    include_confidence=args.include_confidence)
+            )
+            question_id += 1
+
+        for intruder in intruder_setup_2:
+            full_terms = [term for term in intruder["topic_terms"]]
+            full_terms.append(intruder["intruder_term"])
+
+            questions.append(
+                format_intruder_question(
+                    question_id=question_id,
+                    topic_id=intruder["topic_id"],
+                    topic_intruder_id=intruder["intruder_id"],
+                    terms=full_terms,
+                    model_name=args.model_name_2,
+                    include_confidence=args.include_confidence)
+            )
+            question_id += 1
+
+    else:
+        topics = load_topics_file(args.file)
+        intruder_setup = setup_word_intrusion(
+            topics,
+            n=args.num_intruders,
+            topic_idxs=None,
+            num_terms=args.num_terms,
+            sample_top_topic_terms=args.sample_top_terms)
+        print(intruder_setup)
+
+        for intruder in intruder_setup:
+            # This ensures the intruder is always the last work in the list and will be the last encoded term
+            full_terms = [term for term in intruder["topic_terms"]]
+            full_terms.append(intruder["intruder_term"])
+
+            questions.append(
+                format_intruder_question(
+                    question_id=question_id,
+                    topic_id=intruder["topic_id"],
+                    topic_intruder_id=intruder["intruder_id"],
+                    terms=full_terms,
+                    model_name=args.model_name,
+                    include_confidence=args.include_confidence)
+            )
+            question_id += 1
+
     print(f"Generating {len(questions)} questions")
 
     # Step 1: Find and tweak the Survey Blocks sections
     if survey_template["SurveyElements"][0]["PrimaryAttribute"] == "Survey Blocks":
-        survey_template["SurveyElements"][0] = format_survey_blocks(questions)
+        survey_template["SurveyElements"][0] = format_survey_blocks(questions, args.num_rand_questions)
+        #for payload in survey_template["SurveyElements"][0]["Payload"]:
+        #    if payload["ID"] == "BL_2soHZqi6foVxie1":
+        #        payload["Options"]["Randomization"]["Advanced"]["TotalRandSubset"] = str(args.num_rand_questions)
+                
         
     # Step 2: Wipe the existing old questions that are there for easy reference
     idx_to_delete = []
@@ -293,11 +363,14 @@ if __name__ == "__main__":
     survey_template["SurveyElements"] = [element for idx, element in enumerate(survey_template["SurveyElements"])
                                         if not idx in idx_to_delete]
         
+    if args.prolific:
+        set_redirect_url(survey_template["SurveyElements"], args.prolific )
+
     # Step 3: Append the new questions to the end
     for question in questions:
         survey_template["SurveyElements"].append(question)
 
-    survey_template["SurveyEntry"]["SurveyName"] = f"Intrusion {args.model_name.title()}"
+    survey_template["SurveyEntry"]["SurveyName"] = f"Intrusion {args.survey_name.title()}"
         
 
     json.dump(survey_template,
