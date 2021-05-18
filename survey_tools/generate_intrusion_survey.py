@@ -14,6 +14,8 @@ import datetime
 import json
 import random
 
+import numpy as np
+
 from survey_utils import (
     load_topics_file, format_survey_blocks, load_multi_topics_file,
     set_redirect_url, set_nytimes_dataset, set_wikitext_dataset,
@@ -38,6 +40,34 @@ def load_topics_file(filepath, delimiter=","):
         )
     return topics
 
+def jaccard(i, j):
+    i, j = set(i), set(j)
+    return len(i & j) / len(i | j)
+
+def pairwise_jaccard(topics, top_n=50):
+    k = len(topics)
+    dists = np.zeros((k, k))
+    for i, topic_i in enumerate(topics):
+        dists[i, :] = np.array([jaccard(topic_i[:top_n], topic_j[:top_n]) for topic_j in topics])
+    return dists
+
+def select_intruder(dists, seed=42):
+    np.random.seed(seed)
+    dists = dists.copy()
+    k = dists.shape[0]
+    intruders = []
+    median_dist = np.maximum(np.quantile(dists, 0.5, axis=1), 0.01)
+    for i in range(k):
+        intruder_idx = np.random.choice(dists[i].argsort()[:3], size=1)[0]
+        assert(i != intruder_idx)
+        intruders.append(intruder_idx)
+        # block out this topic from future selection
+        # so long as remaining topics are not too close
+        dists[:, intruder_idx] = median_dist
+        dists[intruder_idx, intruder_idx] = 1 # revert diagonal to 1
+    return intruders
+
+
 def setup_word_intrusion(topics_list, n=20, topic_idxs=None, num_terms=5, sample_top_topic_terms=False):
     """
     topics_list: format is a list of dicts [
@@ -55,13 +85,16 @@ def setup_word_intrusion(topics_list, n=20, topic_idxs=None, num_terms=5, sample
     # Generate n random ints for the selection of topics we'll conduct intrusion on
     if not topic_idxs:
         topic_idxs = random.sample(range(len(topics_list)), n)
-        
-    selected_intruders = set()
+
+    # Get maximally distinct topics
+    dists = pairwise_jaccard([t["terms"] for t in topics_list])
+    selected_intruders = select_intruder(dists)
+
     for topic_idx in topic_idxs:
         
         # select another topic from which to grab a term, exclude the current topic
-        random_topic_idx = random.choice([idx for idx in range(0, len(topics_list)) if (idx != topic_idx and idx not in selected_intruders)])
-        selected_intruders.add(random_topic_idx)
+        random_topic_idx = selected_intruders[topic_idx]
+
         # take the top 5 words of the current topic and ONE of the top 5 terms from the top of the other topic
         # assert that the new word is not in the top 50 words of the original topic
         correct_words = [word for word in topics_list[topic_idx]["terms"][:num_terms]]
