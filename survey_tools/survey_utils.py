@@ -36,7 +36,30 @@ def load_topics_file(filepath, delimiter=","):
         )
     return topics
 
-def set_redirect_url(survey_elements, redirct_url):
+def set_nytimes_dataset(survey_elements, qid="QID2"):
+    update_dataset_blurb(
+        survey_elements,
+        dataset="The New York Times",
+        blurb="The New York Times is an American newspaper featuring articles from 1987 to 2007. Sections from a typical paper include <em>International</em>, <em>National</em>, <em>New York Regional</em>, <em>Business</em>, <em>Technology</em>, and <em>Sports News</em>; features on topics such as <em>Dining</em>, <em>Movies</em>, <em>Travel</em>, and <em>Fashion</em>; there are also obituaries and opinion pieces.",
+        qid=qid
+    )
+
+def set_wikitext_dataset(survey_elements, qid="QID2"):
+    update_dataset_blurb(
+        survey_elements,
+        dataset="Wikipedia",
+        blurb='"Wikipedia is an online encyclopedia covering a huge range of topics. Articles can include biographies ("George Washington"), scientific phenomena ("Solar Eclipse"), art pieces ("La Danse"), music ("Amazing Grace"), transportation ("U.S. Route 131"), sports ("1952 winter olympics"), historical events or periods ("Tang Dynasty"), media and pop culture ("The Simpsons Movie"), places ("Yosemite National Park"), plants and animals ("koala"), and warfare ("USS Nevada (BB-36)"), among others',
+        qid=qid
+    )
+
+def update_dataset_blurb(survey_elements, dataset, blurb, qid="QID2"):
+    for element in survey_elements:
+      # update the second section
+        if element["PrimaryAttribute"] == qid:
+            element["Payload"]["QuestionText"] += f"<br>In this survey you will be evaluating data generated from {dataset} <br>" + blurb
+
+
+def set_redirect_url(survey_elements, redirect_url):
     for element in survey_elements:
         if element["PrimaryAttribute"] == "Survey Options":
             element["Payload"]["EOSRedirectURL"] = redirect_url
@@ -52,6 +75,7 @@ def format_survey_blocks(questions, n=25):
     """
     The SurveyBlocks section has to be extended with the set of questions
     """
+    
     return {
       "SurveyID": "SV_5sXmuibskKlpHmJ",
       "Element": "BL",

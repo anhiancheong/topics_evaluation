@@ -10,10 +10,15 @@ Input should be a file of topics in the following form:
 """
 
 import argparse
+import datetime
 import json
 import random
 
-from survey_utils import load_topics_file, format_survey_blocks, load_multi_topics_file
+from survey_utils import (
+    load_topics_file, format_survey_blocks, load_multi_topics_file,
+    set_redirect_url, set_nytimes_dataset, set_wikitext_dataset,
+    update_survey_blocks_element
+)
 
 def load_topics_file(filepath, delimiter=","):
     reader = open(filepath)
@@ -263,11 +268,15 @@ if __name__ == "__main__":
     # THIS NEED TO START AT 3 TO TAKE INTO ACCOUNT THE 2 INTRO BLOCKS
     question_id = 3
 
+    # THIS IS NEEDED TO ACCOUNT FOR THE ADDITIONAL PROLIFIC ID QUESTION
+    if args.prolific:
+        question_id =  4
+
     if args.multi:
+      
         multi_topics_1 = load_multi_topics_file(args.file, args.model_name)[args.multi]
         multi_topics_2 = load_multi_topics_file(args.file_2, args.model_name_2)[args.multi]
 
-        print(multi_topics_1)
         intruder_setup_1 = setup_word_intrusion(
           multi_topics_1,
           n=args.num_intruders,
@@ -276,6 +285,10 @@ if __name__ == "__main__":
           sample_top_topic_terms=args.sample_top_terms
         )
 
+        json.dump(intruder_setup_1,
+            open(f"{args.output}_{args.model_name}.json", "w+"),
+            indent=2)
+
         intruder_setup_2 = setup_word_intrusion(
           multi_topics_2,
           n=args.num_intruders,
@@ -283,6 +296,10 @@ if __name__ == "__main__":
           num_terms=args.num_terms,
           sample_top_topic_terms=args.sample_top_terms
         )
+
+        json.dump(intruder_setup_2,
+            open(f"{args.output}_{args.model_name_2}.json", "w+"),
+            indent=2)
 
         questions = []
                 
@@ -324,7 +341,11 @@ if __name__ == "__main__":
             topic_idxs=None,
             num_terms=args.num_terms,
             sample_top_topic_terms=args.sample_top_terms)
-        print(intruder_setup)
+
+        json.dump(intruder_setup,
+            open(f"{args.output}_{args.model_name}.json", "w+"),
+            indent=2)
+        
 
         for intruder in intruder_setup:
             # This ensures the intruder is always the last work in the list and will be the last encoded term
@@ -346,7 +367,11 @@ if __name__ == "__main__":
 
     # Step 1: Find and tweak the Survey Blocks sections
     if survey_template["SurveyElements"][0]["PrimaryAttribute"] == "Survey Blocks":
-        survey_template["SurveyElements"][0] = format_survey_blocks(questions, args.num_rand_questions)
+        update_survey_blocks_element(
+            survey_template["SurveyElements"][0], 
+            questions
+        )
+        #survey_template["SurveyElements"][0] = format_survey_blocks(questions, args.num_rand_questions)
         #for payload in survey_template["SurveyElements"][0]["Payload"]:
         #    if payload["ID"] == "BL_2soHZqi6foVxie1":
         #        payload["Options"]["Randomization"]["Advanced"]["TotalRandSubset"] = str(args.num_rand_questions)
@@ -370,8 +395,13 @@ if __name__ == "__main__":
     for question in questions:
         survey_template["SurveyElements"].append(question)
 
-    survey_template["SurveyEntry"]["SurveyName"] = f"Intrusion {args.survey_name.title()}"
+    day = datetime.date.today().strftime('%Y-%m-%d')
+    survey_template["SurveyEntry"]["SurveyName"] = f"Intrusion {args.survey_name.title()} {day}"
         
+    if args.multi == "nytimes":
+        set_nytimes_dataset(survey_template["SurveyElements"])
+    if args.multi == "wikitext":
+        set_wikitext_dataset(survey_template["SurveyElements"])
 
     json.dump(survey_template,
             open(f"{args.output}.qsf", "w+"),

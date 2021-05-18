@@ -2,10 +2,14 @@
 This script will generate a topics 'ratings' survey based on a topics survey
 """
 import argparse
+import datetime
 import json
 import random
 
-from survey_utils import load_topics_file, format_survey_blocks, update_survey_blocks_element, load_multi_topics_file
+from survey_utils import (
+    load_topics_file, format_survey_blocks,
+    update_survey_blocks_element, load_multi_topics_file,
+    set_redirect_url, set_nytimes_dataset, set_wikitext_dataset)
 
 
 def format_ratings_question(question_id, topic_id, terms, model_name="topics", top_terms=10, include_confidence=False):
@@ -154,11 +158,17 @@ if __name__ == "__main__":
     args = arg_parser.parse_args()
 
     if args.prolific:
-        survey_template = json.load(open("Topic_Ratings_Template.qsf"))
-    else:    
         survey_template = json.load(open("Topic_Ratings_Template_Prolific.qsf"))
+    else:    
+        survey_template = json.load(open("Topic_Ratings_Template.qsf"))
 
+    # We need to set an appropriate offset for the questions depending on how many parts of the introduction
+    # we have
     question_id = 3
+    if args.prolific:
+        question_id = 4
+
+
     questions = []
 
     if args.multi:
@@ -240,10 +250,16 @@ if __name__ == "__main__":
     for question in questions:
         survey_template["SurveyElements"].append(question)
 
+    day = datetime.date.today().strftime('%Y-%m-%d')
     survey_template["SurveyEntry"]["SurveyName"] = f"Ratings {args.model_name.title()}"
 
     if args.prolific:
         set_redirect_url(survey_template["SurveyElements"], args.prolific )
+
+    if args.multi == "nytimes":
+        set_nytimes_dataset(survey_template["SurveyElements"])
+    if args.multi == "wikitext":
+        set_wikitext_dataset(survey_template["SurveyElements"])
 
     json.dump(survey_template,
             open(f"{args.output}.qsf", "w+"),
