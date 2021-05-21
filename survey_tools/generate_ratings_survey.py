@@ -9,7 +9,8 @@ import random
 from survey_utils import (
     load_topics_file, format_survey_blocks,
     update_survey_blocks_element, load_multi_topics_file,
-    set_redirect_url, set_nytimes_dataset, set_wikitext_dataset)
+    set_redirect_url, set_nytimes_dataset, set_wikitext_dataset,
+    load_fake_topics)
 
 
 def format_ratings_question(question_id, topic_id, terms, model_name="topics", top_terms=10, include_confidence=False):
@@ -37,7 +38,7 @@ def format_ratings_question(question_id, topic_id, terms, model_name="topics", t
             'Choices': {'1': {'Display': 'Not Very Related'},
             '2': {'Display': 'Somewhat Related'},
             '3': {'Display': 'Very Related'}},
-            'ChoiceOrder': ['1', '2', '3'],
+            'ChoiceOrder': ['3', '2', '1'],
             'Validation': {'Settings': {'ForceResponse': 'ON',
             'ForceResponseType': 'ON',
             'Type': 'None'}},
@@ -49,7 +50,7 @@ def format_ratings_question(question_id, topic_id, terms, model_name="topics", t
         }
 
     ratings_question_confidence = {
-        "SecondaryAttribute": "Please rate how related the following terms are to each other and how confident you are in your a...", 
+        "SecondaryAttribute": "Please rate how related the following terms are to each other and how familiar    you are in your a...", 
         "TertiaryAttribute": None, 
         "Element": "SQ", 
         "SurveyID": "SV_cGgwR9yoWhFLjSK", 
@@ -58,17 +59,20 @@ def format_ratings_question(question_id, topic_id, terms, model_name="topics", t
             "QuestionID": f'QID{question_id}', 
             "Validation": {
             "Settings": {
+                "ForceResponseType": "ON", 
+                "MaxChoices": "1", 
                 "Type": "None", 
-                "ForceResponse": "OFF"
+                "ForceResponse": "ON", 
+                "MinChoices": "1"
             }
             }, 
-            "QuestionText": f"<div>Please rate how related the following terms are to each other and how confident you are in your answer:</div><div><br><div> {terms_strings} </div></div>", 
+            "QuestionText": f"<div>Please rate how related the following terms are to each other and how familiar you are with the terms:</div><div><br><div> {terms_strings} </div></div>", 
             "Language": [], 
-            "NextChoiceId": 6, 
+            "NextChoiceId": 7, 
             "GradingData": [], 
             "NextAnswerId": 1, 
             "Selector": "MAVR", 
-            "QuestionDescription": "Please rate how related the following terms are to each other and how confident you are in your a...", 
+            "QuestionDescription": "Please rate how related the following terms are to each other and how familiar you are in your a...", 
             "DataVisibility": {
             "Hidden": False, 
             "Private": False
@@ -79,7 +83,8 @@ def format_ratings_question(question_id, topic_id, terms, model_name="topics", t
             2, 
             3, 
             4, 
-            5
+            5,
+            6
             ], 
             "SubSelector": "TX", 
             "DataExportTag": data_export_tag, 
@@ -93,12 +98,15 @@ def format_ratings_question(question_id, topic_id, terms, model_name="topics", t
             "2": {
                 "Display": "Somewhat related"
             }, 
-            "5": {
-                "Display": "I am <em><strong>not</strong></em> confident in my rating"
-            }, 
             "4": {
-                "Display": "I am confident in my rating"
-            }
+                "Display": "I am familiar with most of these terms."
+            },
+            "5": {
+                "Display": "I am <em><strong>not</strong></em> familiar with most of these terms, but I <em><strong>can</strong></em> answer confidently."
+            },
+            "6": {
+                "Display": "I am <em><strong>not</strong></em> familiar with most of these terms, and so I <em><strong>cannot</strong></em> answer confidently."
+            } 
             }, 
             "Configuration": {
             "QuestionDescriptionOption": "UseText"
@@ -111,7 +119,8 @@ def format_ratings_question(question_id, topic_id, terms, model_name="topics", t
                 }, 
                 "ChoiceGroupOrder": [
                 4, 
-                5
+                5,
+                6
                 ]
             }, 
             "cg_1": {
@@ -123,9 +132,9 @@ def format_ratings_question(question_id, topic_id, terms, model_name="topics", t
                 "Selection": "SAWithinGroup"
                 }, 
                 "ChoiceGroupOrder": [
-                1, 
+                3, 
                 2, 
-                3
+                1
                 ]
             }
             }, 
@@ -144,6 +153,7 @@ if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument("-f", "--file", dest="file", help="File path for input files", required=True)
     arg_parser.add_argument("-o", "--output", dest="output", help="Output file name", required=True)
+    arg_parser.add_argument("-s", "--survey_name", dest="survey_name", help="Survey name", required=True)
     arg_parser.add_argument("-n", "--num_topics", dest="num_topics",
                             type=int, help="Number of Topics to sample",
                             default=20)
@@ -174,6 +184,7 @@ if __name__ == "__main__":
     if args.multi:
         topics_1 = load_multi_topics_file(args.file, args.model_name)[args.multi]
         topics_2 = load_multi_topics_file(args.file_2, args.model_name_2)[args.multi]
+        fake_topics = load_fake_topics()
 
         #all_topics = topics_1[args.multi] + topics_2[args.multi]
 
@@ -207,6 +218,19 @@ if __name__ == "__main__":
                 )
             )
             question_id += 1
+
+        for topic in fake_topics:
+            questions.append(
+                format_ratings_question(
+                    question_id=question_id,
+                    topic_id=topic["topic_id"],
+                    terms=topic["terms"],
+                    model_name=topic["model_name"],
+                    include_confidence=args.include_confidence
+                )
+            )
+            question_id += 1
+
     else:
         all_topics = load_topics_file(args.file)
         
@@ -231,9 +255,10 @@ if __name__ == "__main__":
     if survey_template["SurveyElements"][0]["PrimaryAttribute"] == "Survey Blocks":
         update_survey_blocks_element(
             survey_template["SurveyElements"][0], 
-            questions
+            questions,
+            num_random=args.num_rand_questions
         )
-        survey_template["SurveyElements"][0]["PrimaryAttribute"]
+        #survey_template["SurveyElements"][0]["PrimaryAttribute"]
         
     # Step 2: Wipe the existing old questions that are there for easy reference
     idx_to_delete = []
@@ -251,10 +276,10 @@ if __name__ == "__main__":
         survey_template["SurveyElements"].append(question)
 
     day = datetime.date.today().strftime('%Y-%m-%d')
-    survey_template["SurveyEntry"]["SurveyName"] = f"Ratings {args.model_name.title()}"
+    survey_template["SurveyEntry"]["SurveyName"] = f"Ratings {args.survey_name.title()} {day}"
 
     if args.prolific:
-        set_redirect_url(survey_template["SurveyElements"], args.prolific )
+        set_redirect_url(survey_template["SurveyElements"], args.prolific)
 
     if args.multi == "nytimes":
         set_nytimes_dataset(survey_template["SurveyElements"])

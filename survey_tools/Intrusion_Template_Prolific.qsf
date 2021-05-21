@@ -8,14 +8,14 @@
     "DivisionID": null,
     "SurveyLanguage": "EN",
     "SurveyActiveResponseSet": "RS_0kzni4mqsdYYSMZ",
-    "SurveyStatus": "Inactive",
+    "SurveyStatus": "Active",
     "SurveyStartDate": "0000-00-00 00:00:00",
     "SurveyExpirationDate": "0000-00-00 00:00:00",
     "SurveyCreationDate": "2020-09-26 12:59:59",
     "CreatorID": "UR_1MmbX0D3bAle6sR",
-    "LastModified": "2021-05-15 16:12:24",
+    "LastModified": "2021-05-20 14:55:01",
     "LastAccessed": "0000-00-00 00:00:00",
-    "LastActivated": "0000-00-00 00:00:00",
+    "LastActivated": "2021-05-15 16:28:21",
     "Deleted": null
   },
   "SurveyElements": [
@@ -58,15 +58,15 @@
           "BlockElements": [
             {
               "Type": "Question",
+              "QuestionID": "QID6"
+            },
+            {
+              "Type": "Question",
               "QuestionID": "QID4"
             },
             {
               "Type": "Question",
               "QuestionID": "QID5"
-            },
-            {
-              "Type": "Question",
-              "QuestionID": "QID6"
             }
           ],
           "Options": {
@@ -230,6 +230,39 @@
     },
     {
       "SurveyID": "SV_5sXmuibskKlpHmJ",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID2",
+      "SecondaryAttribute": " ",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": " ",
+        "DefaultChoices": false,
+        "DataExportTag": "Q2",
+        "QuestionType": "DB",
+        "Selector": "TB",
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": " ",
+        "ChoiceOrder": [],
+        "Validation": {
+          "Settings": {
+            "Type": "None"
+          }
+        },
+        "GradingData": [],
+        "Language": [],
+        "NextChoiceId": 4,
+        "NextAnswerId": 1,
+        "QuestionID": "QID2",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_5sXmuibskKlpHmJ",
       "Element": "RS",
       "PrimaryAttribute": "RS_0kzni4mqsdYYSMZ",
       "SecondaryAttribute": "Default Response Set",
@@ -244,7 +277,7 @@
       "TertiaryAttribute": null,
       "Payload": {
         "QuestionText": "Identify which word does not belong with the others",
-        "DataExportTag": "Q6",
+        "DataExportTag": "Q3",
         "QuestionType": "MC",
         "Selector": "SAVR",
         "SubSelector": "TX",
@@ -425,35 +458,6 @@
     {
       "SurveyID": "SV_5sXmuibskKlpHmJ",
       "Element": "SQ",
-      "PrimaryAttribute": "QID2",
-      "SecondaryAttribute": "Instructions In this survey you will be be given a list of words generated from a computer model....",
-      "TertiaryAttribute": null,
-      "Payload": {
-        "QuestionText": "<span style=\"font-weight: bolder;\">Instructions</span><br>In this survey you will be be given a list of words generated from a computer model. Your task is to identify which one of these words is the&nbsp;<span style=\"font-weight: bolder;\">least</span>&nbsp;related to all the other words. Here is an example:<br>\"baby\", \"crib\", \"diaper\", \"beer\", \"pacifier\", \"cry\"<br>In this example the word 'beer' is the&nbsp;least&nbsp;related. All of the other words are closely related to each other, and related to infants.<br><br><div>Here is another, harder, example:</div><div>\"Hard Drive\", \"motherboard\", \"video card\", \"processor\", \"RAM\", \"USB key\"</div><div>All of these terms are related to a computer, but all but 1 of them are components inside of a computer and the correct answer is 'USB key'.</div><div><br></div><div>You may not always know all the words and that's okay.<span style=\"font-weight: bolder;\">&nbsp;Please use only your existing knowledge and do not look up information in dictionaries or on the web.</span></div>",
-        "DefaultChoices": false,
-        "DataExportTag": "Q2",
-        "QuestionType": "DB",
-        "Selector": "TB",
-        "Configuration": {
-          "QuestionDescriptionOption": "UseText"
-        },
-        "QuestionDescription": "Instructions In this survey you will be be given a list of words generated from a computer model....",
-        "ChoiceOrder": [],
-        "Validation": {
-          "Settings": {
-            "Type": "None"
-          }
-        },
-        "GradingData": [],
-        "Language": [],
-        "NextChoiceId": 4,
-        "NextAnswerId": 1,
-        "QuestionID": "QID2"
-      }
-    },
-    {
-      "SurveyID": "SV_5sXmuibskKlpHmJ",
-      "Element": "SQ",
       "PrimaryAttribute": "QID3",
       "SecondaryAttribute": "Please enter your Prolific PID:",
       "TertiaryAttribute": null,
@@ -473,7 +477,8 @@
         "QuestionDescription": "Please enter your Prolific PID:",
         "Validation": {
           "Settings": {
-            "ForceResponse": "OFF",
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
             "Type": "None"
           }
         },
@@ -491,10 +496,10 @@
       "SurveyID": "SV_5sXmuibskKlpHmJ",
       "Element": "SQ",
       "PrimaryAttribute": "QID1",
-      "SecondaryAttribute": "This survey will ask you to evaluate the outputs of a Machine Learning computer model.\u00a0Researcher..",
+      "SecondaryAttribute": "This survey asks you to look at lists of words produced by an automatic\u00a0 computer program. For ea..",
       "TertiaryAttribute": null,
       "Payload": {
-        "QuestionText": "This survey will ask you to evaluate the outputs of a Machine Learning computer model.&nbsp;Researchers in all fields commonly have a lot of documents to explore. One common way to explore these documents is to organize them into different categories.<div>For example, a set of news articles might be organized into a set of Sports, Politics and Entertainment categories.</div><div><br></div><div>Organizing these documents by hand can take a lot of time which is why researches explore ways of to do this automatically.</div><div>In this study, you will be asked to evaluate the quality of the outputs of one of these automatic categorization models across 3 different datasets.<br><br>This study should take approximately 10-15 minutes to complete.<br><br>Your response will be completely anonymous.</div>",
+        "QuestionText": "<p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">This survey asks you to look at lists of words produced by an automatic&nbsp; computer program. For each list, you\u2019ll be answering the question: \u201cWhich word doesn\u2019t belong?\u201d</span></p>\n\n<ul>\n\t<li><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">You will be shown ten sets of six words.</span></li>\n\t<li><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">For each set, click the word whose </span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:italic;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">meaning</span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"> or </span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:italic;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">usage</span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"> is most unlike that of the other words.</span></li>\n\t<li><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">If you feel that multiple words do not belong, choose the one that you feel is most out of place.</span></li>\n\t<li><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Do not base your decisions on how the word is pronounced or written or its grammatical function. For example, if you saw {apple, apricot, anvils, peach), you would not choose \u201cpeach\u201d because it doesn\u2019t start with \u201ca\u201d, you would not choose \u201capricot\u201d because it isn\u2019t five letters long, and you would not choose \u201capple\u201d because it ends with a vowel. Ideally, you would choose \u201canvils\u201d because it is not a fruit.</span></li>\n</ul>\n&nbsp;\n\n<p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Here are some examples:</span></p>\n\n<p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">\"baby\", \"crib\", \"diaper\", \"beer\", \"pacifier\", \"cry\"</span></p>\n\n<p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">In this example the word 'beer' is the least related. All of the other words are closely related to each other, and related to infants.</span></p>\n\n<p>&nbsp;</p>\n\n<p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Here is another, harder, example:</span></p>\n\n<p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">\"Hard Drive\", \"motherboard\", \"video card\", \"processor\", \"RAM\", \"USB key\"</span></p>\n\n<p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">While all of these terms are related to a computer, all but one of them are components </span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:italic;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">inside of</span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"> a computer. The best choice is therefore 'USB key'.</span></p>\n\n<p>&nbsp;</p>\n\n<p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\"><b>You may not always know all the words and that's okay.</b></span></p>",
         "DefaultChoices": false,
         "DataExportTag": "Q1",
         "QuestionID": "QID1",
@@ -503,7 +508,7 @@
         "Configuration": {
           "QuestionDescriptionOption": "UseText"
         },
-        "QuestionDescription": "This survey will ask you to evaluate the outputs of a Machine Learning computer model.\u00a0Researcher...",
+        "QuestionDescription": "This survey asks you to look at lists of words produced by an automatic\u00a0 computer program. For ea...",
         "ChoiceOrder": [],
         "Validation": {
           "Settings": {
@@ -513,7 +518,11 @@
         "GradingData": [],
         "Language": [],
         "NextChoiceId": 4,
-        "NextAnswerId": 1
+        "NextAnswerId": 1,
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        }
       }
     }
   ]

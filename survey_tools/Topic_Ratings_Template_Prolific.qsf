@@ -13,7 +13,7 @@
     "SurveyExpirationDate": "0000-00-00 00:00:00",
     "SurveyCreationDate": "2020-09-27 11:48:45",
     "CreatorID": "UR_1MmbX0D3bAle6sR",
-    "LastModified": "2021-05-17 20:06:12",
+    "LastModified": "2021-05-20 14:44:05",
     "LastAccessed": "0000-00-00 00:00:00",
     "LastActivated": "0000-00-00 00:00:00",
     "Deleted": null
@@ -220,6 +220,39 @@
     },
     {
       "SurveyID": "SV_4My2xeJALXVC80l",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID2",
+      "SecondaryAttribute": " ",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "&nbsp;",
+        "DefaultChoices": false,
+        "DataExportTag": "Q2",
+        "QuestionID": "QID2",
+        "QuestionType": "DB",
+        "Selector": "TB",
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": " ",
+        "ChoiceOrder": [],
+        "Validation": {
+          "Settings": {
+            "Type": "None"
+          }
+        },
+        "GradingData": [],
+        "Language": [],
+        "NextChoiceId": 8,
+        "NextAnswerId": 1,
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_4My2xeJALXVC80l",
       "Element": "QC",
       "PrimaryAttribute": "Survey Question Count",
       "SecondaryAttribute": "6",
@@ -402,7 +435,8 @@
         "QuestionDescription": "Please enter your Prolific PID:",
         "Validation": {
           "Settings": {
-            "ForceResponse": "OFF",
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
             "Type": "None"
           }
         },
@@ -419,44 +453,11 @@
     {
       "SurveyID": "SV_4My2xeJALXVC80l",
       "Element": "SQ",
-      "PrimaryAttribute": "QID2",
-      "SecondaryAttribute": "The computer model we are testing seeks to identify groups of words that are highly related to ea...",
-      "TertiaryAttribute": null,
-      "Payload": {
-        "QuestionText": "<span id=\"docs-internal-guid-f2b933a9-7fff-04e1-8da4-0672df09a6ad\"><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">The computer model we are testing seeks to identify groups of words that are highly related to each other. In the following sections, you will be asked to select how related groups of words are on a 3-point scale. The rating options are: Not Very Related, Somewhat Related, Very Related</span></p><p>&nbsp;</p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">A helpful question to ask yourself is: \u201cwhat is this group of words about?\u201d If you can answer easily, then the words are probably related. Here is some guidance on how to apply these ratings and some examples.</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">&nbsp;</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\"><b>Not Very Related</b> - The words do not share any obvious relationship to each other. It would be difficult to describe how the words are related to each other.</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Example: \"dog\", \"apple\", \"pencil\", \"earth\", \"computer\"</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Example: \u201c1\u201d, \"H1\", \"???\", \"boy\", \"Actions\"&nbsp; (The output of the models may not make sense and have 'gibberish' in them)</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">&nbsp;</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\"><b>Somewhat Related</b> - The words are loosely related to each other, but there may be a few ambiguous or unrelated words</span></p><p>&nbsp;</p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Example: \"computer\", \"video\", \"new\", \"plug\", \"screen\", \"model\" (In this example, some of the words are generic, and some seem like they are more closely related than others)</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Example: \"dog\", \"ball\", \"pet\", \"receipt\", \"pen\" (In this example, some of the words seem closely related, but not all of them)</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">&nbsp;</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\"><b>Very Related</b> - The words are clearly related to each other, and it would be easy to describe how they are related.</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Example: \"dog\", \"cat\", \"hamster\", \"rabbit\", \"snake\" (An obvious way to describe the relationship here would be 'Pets')</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Example: \"book\", \"paper\", \"page\", \"ink\", \"hardcover\" (An obvious way to describe this would be 'Books')</span></p><div><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\"><br></span></div></span>",
-        "DefaultChoices": false,
-        "DataExportTag": "Q2",
-        "QuestionID": "QID2",
-        "QuestionType": "DB",
-        "Selector": "TB",
-        "Configuration": {
-          "QuestionDescriptionOption": "UseText"
-        },
-        "QuestionDescription": "The computer model we are testing seeks to identify groups of words that are highly related to ea...",
-        "ChoiceOrder": [],
-        "Validation": {
-          "Settings": {
-            "Type": "None"
-          }
-        },
-        "GradingData": [],
-        "Language": [],
-        "NextChoiceId": 8,
-        "NextAnswerId": 1,
-        "DataVisibility": {
-          "Private": false,
-          "Hidden": false
-        }
-      }
-    },
-    {
-      "SurveyID": "SV_4My2xeJALXVC80l",
-      "Element": "SQ",
       "PrimaryAttribute": "QID1",
-      "SecondaryAttribute": "This survey asks you to evaluate lists of words produced by an automatic\u00a0 method. Sometimes, rese..",
+      "SecondaryAttribute": "This survey asks you to evaluate lists of words produced by an automatic\u00a0 method. \u00a0 The computer..",
       "TertiaryAttribute": null,
       "Payload": {
-        "QuestionText": "<span id=\"docs-internal-guid-96902da8-7fff-bada-408b-ac9d1df4fe74\"><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">This survey asks you to evaluate lists of words produced by an automatic&nbsp; method.</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Sometimes, researchers have a large collection of documents that they would like to understand. A common way to explore these documents is to organize them into different categories.</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\"><br></span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">For example, a set of news articles might be organized into Sports, Politics, and Entertainment categories.</span></p><p>&nbsp;</p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Organizing these documents by hand can take a lot of time, which is why it is helpful to do it automatically.</span></p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">In this study, you will be asked questions that will help us evaluate the quality of some of these automatic methods.</span></p><p>&nbsp;</p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">This study should take approximately 10-15 minutes to complete.</span></p><p>&nbsp;</p><p><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\">Your response will be completely anonymous.</span></p><div><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\"><br></span></div></span>",
+        "QuestionText": "<span id=\"docs-internal-guid-96902da8-7fff-bada-408b-ac9d1df4fe74\"><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">This survey asks you to evaluate lists of words produced by an automatic&nbsp; method.</span></p><p>&nbsp;</p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">The computer model we are testing seeks to identify groups of words that are highly related to each other. You will be asked to select how related groups of words are on a 3-point scale.<br><br>The rating options are: Not Very Related, Somewhat Related, Very Related.</span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br>A helpful question to ask yourself is: \u201cwhat is this group of words about?\u201d If you can answer easily, then the words are probably related. Here is some guidance on how to apply these ratings and some examples.</span></p><p>&nbsp;</p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Very Related </span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">- Most of the words are clearly related to each other, and it would be easy to describe how they are related.</span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br></span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Example: \"dog\", \"cat\", \"hamster\", \"rabbit\", \"snake\" (An obvious way to describe the relationship here would be 'Pets')</span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br></span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Example: \"brushwork\", \"canvases\", \"expressionism\", \"cubism\", \"modernism\", \"curators\", \"abstract_expressionism\", \"national_gallery_of_art\", \u201cmuseum\u201d, \u201cfossils\u201d (An obvious way to describe this would be \u201cart\u201d, even though one or two of the words are not as clearly related to that.)</span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">&nbsp;</span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Somewhat Related </span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">- The words are loosely related to each other, but there may be a few ambiguous, generic, or unrelated words</span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br></span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Example: \"computer\", \"video\", \"new\", \"plug\", \"screen\", \"model\" (In this example, some of the words are generic, and seem more closely related than others)</span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br></span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Example: \"dog\", \"ball\", \"pet\", \"receipt\", \"pen\" (In this example, some of the words seem closely related, but not all of them)</span></p><p>&nbsp;</p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Not Very Related </span><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">- The words do not share any obvious relationship to each other. It would be difficult to describe how the words are related to each other.</span></p><p><span id=\"docs-internal-guid-36e35a7b-7fff-75b2-d625-7afdd5b6966c\"></span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\"><br></span></p><p><span style=\"font-size:13.5pt;font-family:Arial;color:#43464d;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Example: \"dog\", \"apple\", \"pencil\", \"earth\", \"computer\"</span></p><p>&nbsp;</p><p><br></p><div><span style=\"font-size: 13.5pt; font-family: Arial; color: rgb(67, 70, 77); background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;\"><br></span></div></span>",
         "DefaultChoices": false,
         "DataExportTag": "Q1",
         "QuestionID": "QID1",
@@ -465,7 +466,7 @@
         "Configuration": {
           "QuestionDescriptionOption": "UseText"
         },
-        "QuestionDescription": "This survey asks you to evaluate lists of words produced by an automatic\u00a0 method. Sometimes, rese...",
+        "QuestionDescription": "This survey asks you to evaluate lists of words produced by an automatic\u00a0 method. \u00a0 The computer...",
         "ChoiceOrder": [],
         "Validation": {
           "Settings": {

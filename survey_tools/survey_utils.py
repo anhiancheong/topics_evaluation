@@ -25,7 +25,7 @@ def load_topics_file(filepath, delimiter=","):
     if len(lines[0].split(" ")) > len(lines[0].split(",")):
         delimiter = " "
     # Otherwise we use the regular comma delimiter
-    print("Delimiter: ", delimiter, "---")
+    #print("Delimiter: ", delimiter, "---")
     topics = []
     for idx, line in enumerate(lines):
         topics.append(
@@ -40,7 +40,7 @@ def set_nytimes_dataset(survey_elements, qid="QID2"):
     update_dataset_blurb(
         survey_elements,
         dataset="The New York Times",
-        blurb="The New York Times is an American newspaper featuring articles from 1987 to 2007. Sections from a typical paper include <em>International</em>, <em>National</em>, <em>New York Regional</em>, <em>Business</em>, <em>Technology</em>, and <em>Sports News</em>; features on topics such as <em>Dining</em>, <em>Movies</em>, <em>Travel</em>, and <em>Fashion</em>; there are also obituaries and opinion pieces.",
+        blurb="The New York Times is an American newspaper featuring articles from 1987 to 2007. Sections from a typical paper include <em>International</em>, <em>National</em>, <em>New York Regional</em>, <em>Business</em>, <em>Technology</em>, and <em>Sports</em> news; features on topics such as <em>Dining</em>, <em>Movies</em>, <em>Travel</em>, and <em>Fashion</em>; there are also obituaries and opinion pieces. <br><br>This study should take approximately 10-15 minutes to complete. <br><br>Your response will be completely anonymous.",
         qid=qid
     )
 
@@ -48,7 +48,7 @@ def set_wikitext_dataset(survey_elements, qid="QID2"):
     update_dataset_blurb(
         survey_elements,
         dataset="Wikipedia",
-        blurb='"Wikipedia is an online encyclopedia covering a huge range of topics. Articles can include biographies ("George Washington"), scientific phenomena ("Solar Eclipse"), art pieces ("La Danse"), music ("Amazing Grace"), transportation ("U.S. Route 131"), sports ("1952 winter olympics"), historical events or periods ("Tang Dynasty"), media and pop culture ("The Simpsons Movie"), places ("Yosemite National Park"), plants and animals ("koala"), and warfare ("USS Nevada (BB-36)"), among others',
+        blurb='Wikipedia is an online encyclopedia covering a huge range of topics. Articles can include biographies ("George Washington"), scientific phenomena ("Solar Eclipse"), art pieces ("La Danse"), music ("Amazing Grace"), transportation ("U.S. Route 131"), sports ("1952 winter olympics"), historical events or periods ("Tang Dynasty"), media and pop culture ("The Simpsons Movie"), places ("Yosemite National Park"), plants and animals ("koala"), and warfare ("USS Nevada (BB-36)"), among others. <br><br>This study should take approximately 10-15 minutes to complete. <br><br>Your response will be completely anonymous.',
         qid=qid
     )
 
@@ -56,7 +56,7 @@ def update_dataset_blurb(survey_elements, dataset, blurb, qid="QID2"):
     for element in survey_elements:
       # update the second section
         if element["PrimaryAttribute"] == qid:
-            element["Payload"]["QuestionText"] += f"<br>In this survey you will be evaluating data generated from {dataset} <br>" + blurb
+            element["Payload"]["QuestionText"] += f"<br> In this survey, the word lists are based on a computer analysis of {dataset}. <br><br>" + blurb
 
 
 def set_redirect_url(survey_elements, redirect_url):
@@ -122,3 +122,24 @@ def format_survey_blocks(questions, n=25):
         }
       ]
     }
+
+
+def load_fake_topics():
+    fake_topics = json.load(open("fake_topics.json"))
+    idx = 10000
+    topics = []
+    for key in fake_topics:
+        
+        for fake_source in ["in_vocab"]:
+            for terms in fake_topics[key][fake_source]:
+                topics.append({
+                    "topic_id": idx,
+                    "terms": terms,
+                    "model_name": key +"_fake",
+                    "model_type": fake_source
+                })
+                idx += 1
+    return topics
+      
+
+      

@@ -17,7 +17,7 @@ import random
 from survey_utils import (
     load_topics_file, format_survey_blocks, load_multi_topics_file,
     set_redirect_url, set_nytimes_dataset, set_wikitext_dataset,
-    update_survey_blocks_element
+    update_survey_blocks_element, load_fake_topics
 )
 
 def load_topics_file(filepath, delimiter=","):
@@ -25,9 +25,9 @@ def load_topics_file(filepath, delimiter=","):
     lines = [line.replace("\t", " ") for line in reader.readlines()]
     if len(lines[0].split(" ")) > len(lines[0].split(",")):
         delimiter = " "
-    print(lines)
+    #print(lines)
     # Otherwise we use the regular comma delimiter
-    print("Delimiter: ", delimiter, "---")
+    #print("Delimiter: ", delimiter, "---")
     topics = []
     for idx, line in enumerate(lines):
         topics.append(
@@ -92,7 +92,7 @@ def setup_word_intrusion(topics_list, n=20, topic_idxs=None, num_terms=5, sample
         # select the intruder word
         selected_intruder = random.choice(top_random_words)
         
-        print(topic_idx, random_topic_idx, correct_words + [selected_intruder])
+        #print(topic_idx, random_topic_idx, correct_words + [selected_intruder])
         
         # The last word in each list is the 'intruder', this should be randomized before showing
         #[topics_list[topic_idx]["topic_id"]] + correct_words + [selected_intruder]
@@ -119,17 +119,18 @@ def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, mo
     if include_confidence:
         len_choice = len(choices)
         choices[str(len_choice + 1)] = {
-          "Display": "I am familiar with these terms and am confident in my answer."
+          "Display": "I am familiar with most of these terms."
         }
         choices[str(len_choice + 2)] = {
-          "Display": "I am <em><strong>not</strong></em> familiar enough with these terms to answer confidently."
+          "Display": "I am <em><strong>not</strong></em> familiar with most of these terms, but I <em><strong>can</strong></em> answer confidently."
         }
-
+        choices[str(len_choice + 3)] = {
+          "Display": "I am <em><strong>not</strong></em> familiar with most of these terms, and so I <em><strong>cannot</strong></em> answer confidently."
+        }
+        
     choice_order = [i + 1 for i in range(0, len(choices))]
-    choice_order_intrusion = choice_order[:-2]
-    choice_order_confidence = choice_order[-2:]
-
-    print(choices)
+    choice_order_intrusion = choice_order[:-3]
+    choice_order_confidence = choice_order[-3:]
 
     intruder_question = {
         "SurveyID": "SV_5sXmuibskKlpHmJ",
@@ -161,7 +162,7 @@ def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, mo
     }
 
     intruder_question_confidence = {
-        "SecondaryAttribute": "Please select which term is the least related to all other terms and how confident you are in you...", 
+        "SecondaryAttribute": "Please select which term is the least related to all other terms and your...", 
         "TertiaryAttribute": None, 
         "Element": "SQ", 
         "SurveyID": "SV_cGgwR9yoWhFLjSK", 
@@ -177,7 +178,7 @@ def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, mo
               "MinChoices": "1"
             }
           }, 
-          "QuestionText": "Please select which term is the least related to all other terms and how confident you are in your answer", 
+          "QuestionText": "Please select which term is the least related to all other terms and your familiarity with the words", 
           "Language": [], 
           "NextChoiceId": len(choices) + 1, 
           "DataVisibility": {
@@ -186,7 +187,7 @@ def format_intruder_question(question_id, topic_id, topic_intruder_id, terms, mo
           }, 
           "NextAnswerId": 1, 
           "Selector": "MAVR", 
-          "QuestionDescription": "Please select which term is the least related to all other terms and how confident you are in you...", 
+          "QuestionDescription": "Please select which term is the least related to all other terms and your...", 
           "Randomization": {
             "TotalRandSubset": "", 
             "Type": "None", 
@@ -369,7 +370,8 @@ if __name__ == "__main__":
     if survey_template["SurveyElements"][0]["PrimaryAttribute"] == "Survey Blocks":
         update_survey_blocks_element(
             survey_template["SurveyElements"][0], 
-            questions
+            questions,
+            num_random=args.num_rand_questions
         )
         #survey_template["SurveyElements"][0] = format_survey_blocks(questions, args.num_rand_questions)
         #for payload in survey_template["SurveyElements"][0]["Payload"]:
